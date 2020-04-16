@@ -4,7 +4,10 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import { Database } from '@nozbe/watermelondb'
 import SQLiteAdapter from '@nozbe/watermelondb/adapters/sqlite'
 import { Container, Header, Content, List, ListItem, Text } from 'native-base'
+
 import SearchScreen from './screens/SearchScreen'
+import HomeScreen from './screens/HomeScreen'
+import GurbaniView from './screens/GurbaniView'
 
 import schema from './models/Schema'
 import { dbModels } from './models/Index'
@@ -40,7 +43,7 @@ const DrawerContent = ( props: any ) => {
       <Content>
         <List>
           <ListItem>
-            <Text onPress={() => goTo( 'Home' )}>Home</Text>
+            <Text onPress={() => goTo( 'Search' )}>Search</Text>
           </ListItem>
           <ListItem>
             <Text onPress={() => goTo( 'DataManager' )}>DataManager</Text>
@@ -53,7 +56,9 @@ const DrawerContent = ( props: any ) => {
 
 const RootNavigator = () => (
   <Drawer.Navigator drawerContent={( props ) => DrawerContent( props )}>
-    <Drawer.Screen name="Home" component={SearchScreen} />
+    <Drawer.Screen name="Home" component={HomeScreen} />
+    <Drawer.Screen name="Search" component={SearchScreen} />
+    <Drawer.Screen name="GurbaniView" component={GurbaniView} /> 
     <Drawer.Screen name="DataManager" component={DataManager} />
   </Drawer.Navigator>
 )
