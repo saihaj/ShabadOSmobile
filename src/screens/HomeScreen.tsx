@@ -20,7 +20,7 @@ const styles = StyleSheet.create( {
   },
 } )
 
-const HomeScreen: FunctionComponent<HomeSreenProps> = () => (
+const HomeScreen: FunctionComponent<HomeSreenProps> = ( props ) => (
   <Container>
     <Content>
       <View style={styles.welcomeContent}>
@@ -31,7 +31,7 @@ const HomeScreen: FunctionComponent<HomeSreenProps> = () => (
         <Text style={{ fontSize: 35, fontWeight: 'bold' }}>Shabad OS</Text>
       </View>
     </Content>
-    <NavigationBar />
+    <NavigationBar {...props} />
   </Container>
 )
 

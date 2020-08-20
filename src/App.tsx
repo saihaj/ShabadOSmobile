@@ -43,6 +43,9 @@ const DrawerContent = ( props: any ) => {
       <Content>
         <List>
           <ListItem>
+            <Text onPress={() => goTo( 'Home' )}>Home</Text>
+          </ListItem>
+          <ListItem>
             <Text onPress={() => goTo( 'Search' )}>Search</Text>
           </ListItem>
           <ListItem>
@@ -58,7 +61,7 @@ const RootNavigator = () => (
   <Drawer.Navigator drawerContent={( props ) => DrawerContent( props )}>
     <Drawer.Screen name="Home" component={HomeScreen} />
     <Drawer.Screen name="Search" component={SearchScreen} />
-    <Drawer.Screen name="GurbaniView" component={GurbaniView} /> 
+    <Drawer.Screen name="GurbaniView" component={GurbaniView} />
     <Drawer.Screen name="DataManager" component={DataManager} />
   </Drawer.Navigator>
 )

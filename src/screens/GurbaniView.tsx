@@ -40,7 +40,7 @@ const styles = StyleSheet.create( {
 } )
 
 // console.log( shabadData.shabad[ 0 ].line.gurmukhi.unicode )
-const GurbaniViewScreen: FunctionComponent<GurbaniViewScreen> = () => (
+const GurbaniViewScreen: FunctionComponent<GurbaniViewScreen> = ( props ) => (
   <Container>
     <SafeAreaView style={styles.title} />
     <Content>
@@ -50,22 +50,22 @@ const GurbaniViewScreen: FunctionComponent<GurbaniViewScreen> = () => (
         </Text>
       </View>
       <View style={styles.content}>
-        {shabadData.shabad.map( ( lines ) => (
-          <View>
+        {shabadData.shabad.map( ( { line: { id, gurmukhi, translation } } ) => (
+          <View key={id}>
             <Text style={styles.contentTextGurmukhi}>
-              {lines.line.gurmukhi.unicode}
+              {gurmukhi.unicode}
             </Text>
             <Text style={styles.contentTextGurmukhiTranslation}>
-              {lines.line.translation.punjabi.default.unicode}
+              {translation.punjabi.default.unicode}
             </Text>
             <Text style={styles.contentTextEnglishTranslation}>
-              {lines.line.translation.english.default}
+              {translation.english.default}
             </Text>
           </View>
         ) )}
       </View>
     </Content>
-    <NavigationBar />
+    <NavigationBar {...props}/>
   </Container>
 )
 export default GurbaniViewScreen

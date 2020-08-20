@@ -1,11 +1,15 @@
-import React, { Component } from 'react'
-import { StyleSheet, View, Image, TouchableOpacity, Button, Alert } from 'react-native'
-import { Icon } from 'react-native-elements'
+import React from 'react'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { StyleSheet, View, Image, TouchableOpacity, TabBarIOS } from 'react-native'
 import BottomSheet from 'reanimated-bottom-sheet'
+import { FooterTab, Button } from 'native-base'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 import logo from '../../assets/logo.png'
 
-type NavigationBarProps = { }
+type NavigationBarProps = {
+  navigation: StackNavigationProp<>;
+}
 
 const styles = StyleSheet.create( {
   navigationPanel: {
@@ -28,9 +32,12 @@ const styles = StyleSheet.create( {
   },
   navigationPanelIconContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    paddingTop: '6%',
+    paddingTop: '5%',
     paddingBottom: '6%',
+  },
+  navigationIconSpacing: {
+    paddingRight: 30,
+    paddingLeft: 30,
   },
   navigationPanelButtonContainer: {
     flexDirection: 'row',
@@ -38,84 +45,58 @@ const styles = StyleSheet.create( {
   },
 } )
 
-/**
- * Display an alert for WIP.
- */
-const workInProg = () => {
-  Alert.alert( ' 🚧 ', 'ਕੰਮ ਚੱਲ ਰਿਹਾ ਹੈ' )
-}
+const Buttons = [
+  [ 'history', 'WIP' ],
+  [ 'bookmark', 'WIP' ],
+  [ 'search', 'Search' ],
+  [ 'square-stack', 'GurbaniView' ],
+  [ 'ellipsis-h', 'WIP' ],
+]
 
-class NavigationBar extends Component<NavigationBarProps> {
-    renderNavigationHeader = () => (
-      <View style={styles.navigationPanelHeader}>
-        <View style={styles.navigationPanelHandle} />
-        <View style={styles.navigationPanelIconContainer}>
-          <View style={{ marginRight: '5%' }}>
-            <Icon
-              name="history"
-              type="font-awesome"
-              color="#3783F6"
-              onPress={workInProg}
-            />
+const NavigationBar: React.FC<NavigationBarProps> = ( { navigation } ) => {
+  const renderNavigationHeader = () => (
+    <View style={styles.navigationPanelHeader}>
+      <View style={styles.navigationPanelHandle} />
+
+      <View style={styles.navigationPanelIconContainer}>
+
+        {Buttons.map( ( [ iconName, destination ] ) => (
+          <View key={iconName} style={styles.navigationIconSpacing}>
+            <TabBarIOS>
+              <Icon.TabBarItemIOS
+                name={iconName}
+                size={20}
+                color="rgb(47,124,246)"
+                onPress={() => navigation.navigate( destination )}
+              />
+            </TabBarIOS>
           </View>
-          <View style={{ marginRight: '5%', marginLeft: '5%' }}>
-            <Icon
-              name="bookmark"
-              type="font-awesome"
-              color="#3783F6"
-              onPress={workInProg}
-            />
-          </View>
-          <View style={{ marginRight: '5%', marginLeft: '5%' }}>
-            <Icon
-              name="search"
-              type="font-awesome"
-              color="#3783F6"
-              onPress={workInProg}
-            />
-          </View>
-          <View style={{ marginRight: '5%', marginLeft: '5%' }}>
-            <Icon
-              name="window-restore"
-              type="font-awesome"
-              color="#3783F6"
-              onPress={workInProg}
-            />
-          </View>
-          <View style={{ marginLeft: '5%' }}>
-            <Icon
-              name="ellipsis-h"
-              type="font-awesome"
-              color="#3783F6"
-              onPress={workInProg}
-            />
-          </View>
-        </View>
+        ) )}
       </View>
-    )
 
-    renderNavigationContent = () => (
-      <View style={styles.navigationPanel}>
-        <View style={styles.navigationPanelButtonContainer}>
-          <Button title="Prev" onPress={workInProg} />
-          <TouchableOpacity activeOpacity={0.5}>
-            <Image style={{ width: 50, height: 50 }} source={logo} />
-          </TouchableOpacity>
-          <Button title="Next" onPress={workInProg} />
-        </View>
+    </View>
+  )
+
+  const renderNavigationContent = () => (
+    <View style={styles.navigationPanel}>
+      <View style={styles.navigationPanelButtonContainer}>
+        <Icon name="arrow-left" />
+        <TouchableOpacity activeOpacity={0.5}>
+          <Image style={{ width: 50, height: 50 }} source={logo} />
+        </TouchableOpacity>
+        <Icon name="arrow-right" />
       </View>
-    )
+    </View>
+  )
 
-    render() {
-      return (
-        <BottomSheet
-          snapPoints={[ 150, 90, 90 ]}
-          renderContent={this.renderNavigationContent}
-          renderHeader={this.renderNavigationHeader}
-          initialSnap={1}
-        />
-      )
-    }
+  return (
+    <BottomSheet
+      snapPoints={[ 150, 90, 90 ]}
+      renderContent={renderNavigationContent}
+      renderHeader={renderNavigationHeader}
+      initialSnap={1}
+    />
+  )
 }
 
 export default NavigationBar
