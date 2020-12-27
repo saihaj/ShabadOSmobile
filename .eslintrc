@@ -154,6 +154,8 @@
       {
         "newlines-between": "always"
       }
-    ]
+    ],
+    // For readability purposes it can be useful if not abused
+    "@typescript-eslint/no-shadow": "off"
   }
 }
