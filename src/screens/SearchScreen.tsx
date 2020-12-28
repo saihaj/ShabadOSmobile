@@ -10,7 +10,7 @@ import { my } from '../themes/utils'
 
 const styles = StyleSheet.create( {
   backButton: {
-    ...my,
+    ...my(),
   },
   searchBar: {
     flex: 0.95,

@@ -15,13 +15,13 @@ const styles = StyleSheet.create( {
     backgroundColor: Colours.DarkGray,
   },
   searchIcon: {
-    ...my,
+    ...my(),
   },
   searchInputBox: {
     flex: 1,
     fontSize: 22,
     marginLeft: 5,
-    ...my,
+    ...my(),
   },
 } )
 
